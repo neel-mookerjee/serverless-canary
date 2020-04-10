@@ -1,0 +1,66 @@
+# serverless.yml
+
+service:               canary
+
+provider:
+  name:                aws
+  runtime:             nodejs8.10
+  region:              us-west-2
+  vpc:
+    securityGroupIds:
+      - sg-df3383a4
+    subnetIds:
+      - subnet-f04480b9
+      - subnet-9c08aafb
+  environment:
+    NODE_ENV:          production
+  iamRoleStatements:
+    - Effect:          Allow
+      Action:
+        - cloudwatch:PutMetricData
+      Resource:        "*"
+    - Effect:          Allow
+      Action:
+        - ec2:CreateNetworkInterface
+      Resource:        "*"
+    - Effect:          Allow
+      Action:
+        - ec2:DescribeNetworkInterfaces
+      Resource:        "*"
+    - Effect:          Allow
+      Action:
+        - ec2:DeleteNetworkInterface
+      Resource:        "*"
+
+functions:
+  example1:
+    handler:           handler.checkTarget
+    events:
+      # Invoke Lambda function every 2 minutes
+      - schedule:
+          rate:        rate(2 minutes)
+          enabled:     true
+          input:
+            name:      example1
+            url:       https://example.org
+            type:      http
+            namespace: "Canary"
+            timeout:   10000
+    tags:              # Function specific tags
+      org:             arghanil
+
+  example2:
+    handler:           handler.checkTarget
+    events:
+      # Invoke Lambda function every 2 minutes
+      - schedule:
+          rate:        rate(2 minutes)
+          enabled:     true
+          input:
+            name:      example2
+            url:       https://example.org
+            type:      http
+            namespace: "Canary"
+            timeout:   10000
+    tags:              # Function specific tags
+      org:             arghanil

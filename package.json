@@ -1,0 +1,21 @@
+{
+  "name": "canary-serverless-infra",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "serverless-http": "^2.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arghanil/serverless-canary.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
